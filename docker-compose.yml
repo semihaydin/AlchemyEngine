@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  selenium:
+    image: seleniarm/standalone-chromium:latest   # ARM64-friendly
+    shm_size: 2gb
+    ports: ["4444:4444"]
+
+  tests:
+    build: .
+    environment:
+      - CHROME_HEADLESS=true
+      - REMOTE_URL=http://selenium:4444/wd/hub
+    depends_on: [selenium]
